@@ -9,7 +9,6 @@
 #       on the ground level, and some more rooms on the second story.
 #       The game is still very rough, but it is working w/o error.
 
-
 class Dungeon
   attr_accessor :character, :number_of_rooms
 
@@ -73,7 +72,7 @@ class Dungeon
 
   def go(direction)
     puts "-" * 50
-    puts "#{@character.name} goes " + direction.to_s + " to the: "
+    print "#{@character.name} goes " + direction.to_s + " to the: "
     @character.location = find_room_in_direction(direction)
     show_current_description()
   end
@@ -83,7 +82,9 @@ separator = "-" * 50
 
 # Creates the main dungeon object
 print "What is your name: "
-name = gets.chomp
+name = gets.chomp!.capitalize
+puts ""
+
 raven_hall = Dungeon.new(name)
 
 # Add the Hallway to the dungeon (1st Floor)
@@ -229,30 +230,35 @@ salon = Dungeon::Room.new(:salon, "SALON",
 2, { :west => :hallway6 })
 raven_hall.add_room(salon)
 
-puts  "You can hear owls hooting and unknown creatures flitting in the underbrush. " +
-      "A thick layer of fog has descended upon the valley making it difficult for your " +
-      "horse to find her footing. You pass a carriage house that has long since seen any " +
-      "passengers. You know the house is not far from here.\n" +
-      "You can hear a wolf howl in distance as the ancient keep suddenly emerges from " +
-      "the fog as if it were expecting you. The ancient brick and stone walls are covered in " +
-      "ivy. The house, Wolf Hall, is the ancestral seat of the once proud and ancient " +
-      "Ravenscroft family. The last inhabitant of the house passed recently. The last scion of " +
-      "an ancient and noble family, Albert Ravenscroft, was your friend from Oxford. You smile " +
-      "as you remember your university days together. The main line, now extinct, has passed to " +
-      "distant cousin and on his behalf are here to settle the estate. They have sent you here " +
-      "to determine if the estate is even worth keeping. You get off your horse, tie him to the " +
-      "gate, and remove your belongings from the saddle bags. As you walk up to the door the " +
-      "gargoyles peer down at you with contempt. You knock on the door using the bronze door " +
-      "knocker. Irving, Alberts personal valet, answers the door and invites you in.\n\n" +
-      "\"I've been expecting you, mister #{name}\" Irvine croaked as he takes your hat and coat.\n" +
-      "\"Hello Irving, It's been too long. It's been 15 years since I was last here visiting Bertie." +
-      " How are Elias, Edith, Bess, and Eliza?\"\n" +
-      "\"They left directly after mister Ravenscroft passed\"\n" +
-      "\"So, it's just you then?\" I asked.\n" +
-      "\"It is, sir. I've also been instructed to give you free reign of the place.\" He replied.\n" +
+puts  "You can hear owls hooting and unknown creatures flitting in the underbrush." +
+      "\nA thick layer of fog has descended upon the valley making it difficult for" +
+      "\nyour horse to find her footing. You pass a carriage house that has long" +
+      "\nsince seen any passengers. You know the house is not far from here. You can" +
+      "\nhear a wolf howl in distance as the ancient keep suddenly emerges from the fog" +
+      "\nas if it were expecting you. The ancient brick and stone walls are covered in " +
+      "\nivy. The house, Ravenscroft Keep, is the ancestral seat of the once proud and" +
+      "\nancient Ravenscroft family. The last inhabitant of the house passed recently." +
+      "\nThe last scion of an ancient and noble family, Albert Ravenscroft, was your" +
+      "\nfriend from Oxford. You smile wryly as you remember your university days" +
+      "\ntogether. The main line, now extinct, has passed to distant cousin and on his" +
+      "\nbehalf are here to settle the estate. They have sent you here to determine if" +
+      "\nthe estate is even worth keeping. You get off your horse, tie him to the gate," +
+      "\nand remove your belongings from the saddle bags. As you walk up to the door the" +
+      "\ngargoyles seem to peer down at you with contempt. You knock on the door using the" +
+      "\nbronze door knocker. Irving, Albert's personal valet, answers the door and invites" +
+      "\nyou in.\n" +
+      "\n\"I've been expecting you, mister #{name}\" Irvine croaked as he takes your hat " +
+      "and coat\ncaked stiff with dust and damp\nfrom the long, cold ride from London.\n" +
+      "\"Hello Irving, It's been too long. It's been at least 15 years since I was last here " +
+      "\nvisiting Bertie,\" I tried to say as cheerfully as possible.\n" +
+      "\"How are the other staff: Elias, Edith, Bess, and Eliza?\" I asked.\n" +
+      "\"They left directly after mister Ravenscroft passed.\" Irving said brusquely.\n" +
+      "\"Shame. So, it's just you then?\" I asked.\n" +
+      "\"It is, sir. I've also been instructed to give you free reign of the place.\" " +
+      "He replied.\n" +
       "\"Thank you, Irving, I will be retiring to room and then look at the rest of the house.\"" +
-      "You've unpacked your bags and changed out of your riding clothes and decide to start at the " +
-      "entrance of the manse."
+      "\n\nYou've unpacked your bags and changed out of your riding clothes and decide" +
+      "to start at\nthe entrance of the manse."
 
 puts separator
 
@@ -298,7 +304,7 @@ raven_hall.go(:east)
 raven_hall.go(:down)
 
 # This is just to make sure the level of the
-# house the character is on can be accessed
-# puts "Level: #{larder.level}"
+# house that the character is on is correct
+# puts "Level: #{kitchen.level}"
 # puts "Level: #{conservatory.level}"
 # puts "Level: #{smoking_room.level}"
