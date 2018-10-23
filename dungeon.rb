@@ -194,9 +194,33 @@ raven_hall.add_room(
   :game_room, "GAME ROOM",
   "The GAME ROOM contains a billiards table with the balls still in the triangle on the velvet, " +
   "green surface. A well-worn dart board is on the wall, however, the darts are long missing.",
-  "\nThe door goes to the HALLWAY to the EAST.",
+  "\nThe door goes to the HALLWAY to the WEST.",
   2, { :west => :hallway4 }
 )
+
+# Add the Smoking Room (2nd Floor)
+raven_hall.add_room(
+  :smoking_room, "SMOKING ROOM",
+  "The SMOKING ROOM reeks of stale cigar and pipe smoke. You remember the good times you spent " +
+  "in here with Bertie. You remember the two of you stealing away to try his father's cigars. " +
+  "\"It looks like those days are over,\" you whisper to yourself.",
+  "\nThe door goes to the HALLWAY to the EAST",
+  2, { :east => :hallway4 }
+)
+
+# Add the Dining Room (2nd Floor)
+raven_hall.add_room(
+  :dining_room, "DINING ROOM",
+  "The DINING ROOM is the longest room in the house with a table that can seat 50 people. You " +
+  "remember frugal dinners with the family and fabulous banquets when the family would host " +
+  "foreign dignitaries and powerful peers of the realm. It has been many years, it seems, since " +
+  "food has been served here. Now only dust and cobwebs blanket the fine china still laid out " +
+  "perfectly on the table.",
+  "\nThe door leads to the HALLWAY to the WEST",
+  2, { :east => :hallway6 }
+)
+
+
 
 puts  "You can hear owls hooting and unknown creatures flitting in the underbrush. " +
       "A thick layer of fog has descended upon the valley making it difficult for your " +
