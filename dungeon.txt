@@ -1,0 +1,104 @@
+What is your name: drake
+
+You can hear owls hooting and unknown creatures flitting in the underbrush.
+A thick layer of fog has descended upon the valley making it difficult for
+your horse to find her footing. You pass a carriage house that has long
+since seen any passengers. You know the house is not far from here. You can
+hear a wolf howl in distance as the ancient keep suddenly emerges from the fog
+as if it were expecting you. The ancient brick and stone walls are covered in
+ivy. The house, Ravenscroft Keep, is the ancestral seat of the once proud and
+ancient Ravenscroft family. The last inhabitant of the house passed recently.
+The last scion of an ancient and noble family, Albert Ravenscroft, was your
+friend from Oxford. You smile wryly as you remember your university days
+together. The main line, now extinct, has passed to distant cousin and on his
+behalf are here to settle the estate. They have sent you here to determine if
+the estate is even worth keeping. You get off your horse, tie him to the gate,
+and remove your belongings from the saddle bags. As you walk up to the door the
+gargoyles seem to peer down at you with contempt. You knock on the door using the
+bronze door knocker. Irving, Albert's personal valet, answers the door and invites
+you in.
+
+"I've been expecting you, mister Drake" Irvine croaked as he takes your hat and coat
+caked stiff with dust and damp
+from the long, cold ride from London.
+"Hello Irving, It's been too long. It's been at least 15 years since I was last here
+visiting Bertie," I tried to say as cheerfully as possible.
+"How are the other staff: Elias, Edith, Bess, and Eliza?" I asked.
+"They left directly after mister Ravenscroft passed." Irving said brusquely.
+"Shame. So, it's just you then?" I asked.
+"It is, sir. I've also been instructed to give you free reign of the place." He replied.
+"Thank you, Irving, I will be retiring to room and then look at the rest of the house."
+
+You've unpacked your bags and changed out of your riding clothes and decideto start at
+the entrance of the manse.
+--------------------------------------------------
+                        FIRST FLOOR
+                 ________________________
+                |      |          |      |
+conservatory -> |  5   |         /    2  | <- service room
+                |__--__|          |______|
+                |      |                 |
+     library -> |  4    \         [ [ [ [| <- stairs
+                |__--__|           ______|
+                |      |          |      |
+       study -> |  3    \        /    1  | <- cloak room
+                |______|____==____|______|
+
+--------------------------------------------------
+1st floor HALLWAY
+
+You are in the 1st floor HALLWAY
+The hall is dusty and littered with cobwebs.
+The HALLWAY connects to the CLOAK ROOM to the EAST and the STUDY to the WEST.
+--------------------------------------------------
+Drake goes east to the: CLOAK ROOM
+
+You are in the CLOAK ROOM
+In addition to your jacket and hat, the cloak room contains various
+hunting coats, rain jackets, and boots that once belonged to Albert.
+The door goes to the HALLWAY to the EAST.
+--------------------------------------------------
+Drake goes west to the: 1st floor HALLWAY
+
+You are in the 1st floor HALLWAY
+The hall is dusty and littered with cobwebs.
+The HALLWAY connects to the CLOAK ROOM to the EAST and the STUDY to the WEST.
+--------------------------------------------------
+Drake goes north to the: 1st floor HALLWAY
+
+You are in the 1st floor HALLWAY
+The hall is dusty and littered with cobwebs.
+The HALLWAY connects to the LIBRARY to the WEST and UP the stairs.
+--------------------------------------------------
+Drake goes up to the: 2nd floor HALLWAY
+
+You are in the 2nd floor HALLWAY
+The HALLWAY floor boards are creaky and you worry you might fall through.
+The HALLWAY leads to the HALLWAY to the NORTH and the SOUTH and DOWN the STAIRS.
+--------------------------------------------------
+Drake goes down to the: 1st floor HALLWAY
+
+You are in the 1st floor HALLWAY
+The hall is dusty and littered with cobwebs.
+The HALLWAY connects to the LIBRARY to the WEST and UP the stairs.
+--------------------------------------------------
+Drake goes north to the: 1st floor HALLWAY
+
+You are in the 1st floor HALLWAY
+The hall is dusty and littered with cobwebs.
+The HALLWAY connects to the SERVICE ROOM to the EAST.
+--------------------------------------------------
+Drake goes east to the: SERVICE ROOM
+
+You are in the SERVICE ROOM
+The SERVICE ROOM is where the servants did much of their work.
+The stairs go DOWN to the KITCHEN and EAST back into the HALLWAY.
+--------------------------------------------------
+Drake goes down to the: KITCHEN
+
+You are in the KITCHEN
+The once bustling KITCHEN was where Bessie the cook and
+Eliza the scullery maid made meals for the family. It is now completely empty.
+The pots and pans are still neatly arranged on the shelves and racks.
+Now only your footsteps echo throughout the KITCHEN.
+The door goes to the LARDER to the SOUTH and the stairs go back UP to the SERVICE ROOM.
