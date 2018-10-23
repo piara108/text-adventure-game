@@ -1,7 +1,20 @@
-# Dungeon class
+#!/usr/local/bin/ruby
+# NAME: Piara Sandhu
+# DATE: 22/10/2018
+# FILE: dungeon.rb
+# DESC: This is the code to write a text adventure game. The Dungeon,
+#       Character, and Room classes make form the logic of the game.
+#       The game takes place in a haunted house that has three stories:
+#       A kitchen, larder, and cold storage room below ground, several rooms
+#       on the ground level, and some more rooms on the second story.
+#       The game is still very rough, but it is working w/o error.
+
 
 class Dungeon
-  attr_accessor :character
+  attr_accessor :character, :number_of_rooms
+
+  # Counts the number of rooms in the dungeon
+  @@number_of_rooms = 0
 
   def initialize(name)
     @character = Character.new(name)
@@ -34,8 +47,11 @@ class Dungeon
     end
   end
 
-  def add_room(reference, name, description, level, connections)
-    @rooms << Room.new(reference, name, description, level, connections)
+  # I chose to add the room object just in case
+  # I need to access the fields for each room
+  def add_room(room)
+    @@number_of_rooms += 1
+    @rooms << room
   end
 
   def start(location)
@@ -56,7 +72,8 @@ class Dungeon
   end
 
   def go(direction)
-    puts "You go " + direction.to_s
+    puts "-" * 50
+    puts "#{@character.name} goes " + direction.to_s + " to the: "
     @character.location = find_room_in_direction(direction)
     show_current_description()
   end
@@ -65,162 +82,152 @@ end
 separator = "-" * 50
 
 # Creates the main dungeon object
-# print "What is your name: "
-# name = gets.chomp
-name = "Drake"
+print "What is your name: "
+name = gets.chomp
 raven_hall = Dungeon.new(name)
 
 # Add the Hallway to the dungeon (1st Floor)
-raven_hall.add_room(
-  :hallway1, "HALLWAY",
-  "The hall is dusty and littered with cobwebs." +
-  "\nThe HALLWAY connects to the CLOAK ROOM to the EAST and the STUDY to the WEST.",
-  1, { :north => :hallway2, :east => :cloak_room, :west => :study }
-)
+hallway1 = Dungeon::Room.new(:hallway1, "1st floor HALLWAY",
+"The hall is dusty and littered with cobwebs." +
+"\nThe HALLWAY connects to the CLOAK ROOM to the EAST and the STUDY to the WEST.",
+1, { :north => :hallway2, :east => :cloak_room, :west => :study })
+raven_hall.add_room(hallway1)
 
-raven_hall.add_room(
-  :hallway2, "HALLWAY",
+hallway2 = Dungeon::Room.new(:hallway2, "1st floor HALLWAY",
   "The hall is dusty and littered with cobwebs." +
-  "\nThe HALLWAY connects to the LIBRARY to the WEST.",
-  1, { :north => :hallway3, :west => :library, :south => :hallway1 }
-)
+  "\nThe HALLWAY connects to the LIBRARY to the WEST and UP the stairs.",
+  1, { :north => :hallway3, :west => :library, :south => :hallway1, :up => :hallway5 })
+raven_hall.add_room(hallway2)
 
-raven_hall.add_room(
-  :hallway3, "HALLWAY",
+hallway3 = Dungeon::Room.new(:hallway3, "1st floor HALLWAY",
   "The hall is dusty and littered with cobwebs." +
   "\nThe HALLWAY connects to the SERVICE ROOM to the EAST.",
-  1, { :south => :hallway2, :east => :service_room }
-)
+  1, { :south => :hallway2, :east => :service_room })
+raven_hall.add_room(hallway3)
 
 # Add the Cloak Room to the dungeon (1st Floor)
-raven_hall.add_room(
-  :cloak_room, "CLOAK ROOM",
-  "In addition to your jacket and hat, the cloak room contains various hunting coats, " +
-  "rain jackets, and boots that once belonged to Albert." +
-  "\nThe door goes to the HALLWAY to the EAST.\n#{separator}",
-  1, { :west => :hallway1 }
-)
+cloak_room = Dungeon::Room.new(:cloak_room, "CLOAK ROOM",
+  "In addition to your jacket and hat, the cloak room contains various\n" +
+  "hunting coats, rain jackets, and boots that once belonged to Albert." +
+  "\nThe door goes to the HALLWAY to the EAST.",
+  1, { :west => :hallway1 })
+raven_hall.add_room(cloak_room)
 
 # Add the Study to the dungeon (1st Floor)
-raven_hall.add_room(
-  :study, "STUDY",
+study = Dungeon::Room.new(:study, "STUDY",
   "Various papers and parchment lay about the desk and room as if someone had already rifled " +
   "through his papers." +
-  "\nThe doors go to the LIBRARY to the NORTH and the HALLWAY to the EAST.\n#{separator}",
-  1, { :east => :hallway, :north => :library }
-)
+  "\nThe doors go to the LIBRARY to the NORTH and the HALLWAY to the EAST.",
+  1, { :east => :hallway, :north => :library })
+raven_hall.add_room(study)
 
 # Add the Library to the dungeon (1st Floor)
-raven_hall.add_room(
-  :library, "LIBRARY",
-  "Old dusty books and long forgotten tomes line the book shelves. The upholstery on the " +
-  "once-comfortable reading chairs have fallen apart." +
-  "\nThe doors go to the STUDY to the SOUTH, the CONSERVATORY to the NORTH and the HALLWAY to the EAST.",
-  1, { :south => :study, :east => :hallway2, :north => :conservatory }
-)
+library = Dungeon::Room.new(:library, "LIBRARY",
+"Old dusty books and long forgotten tomes line the book shelves. The upholstery on the " +
+"once-comfortable reading chairs have fallen apart." +
+"\nThe doors go to the STUDY to the SOUTH, the CONSERVATORY to the NORTH and the HALLWAY to the EAST.",
+1, { :south => :study, :east => :hallway2, :north => :conservatory })
+raven_hall.add_room(library)
 
 # Add the Conservatory to the dungeon (1st Floor)
-raven_hall.add_room(
-  :conservatory, "CONSERVATORY",
-  "The conservatory is warm and muggy from all of the exotic vegetation. Venus flytraps sit " +
-  "next to pitcher plants. Albert's mother was famous for her collection of poisonous plants. " +
-  "\nThe door goes to the LIBRARY to the SOUTH.",
-  1, { :south => :library }
-)
+conservatory = Dungeon::Room.new(:conservatory, "CONSERVATORY",
+"The conservatory is warm and muggy from all of the exotic vegetation. Venus flytraps sit " +
+"next to pitcher plants. Albert's mother was famous for her collection of poisonous plants. " +
+"\nThe door goes to the LIBRARY to the SOUTH.",
+1, { :south => :library })
+raven_hall.add_room(conservatory)
 
 # Add the Service Room to the dungeon (1st Floor)
-raven_hall.add_room(
-  :service_room, "SERVICE ROOM",
-  "The SERVICE ROOM is where the servants did much of their work." +
-  "\nThe stairs go DOWN to the KITCHEN.",
-  1, { :down => :kitchen}
-)
+service_room = Dungeon::Room.new(:service_room, "SERVICE ROOM",
+"The SERVICE ROOM is where the servants did much of their work." +
+"\nThe stairs go DOWN to the KITCHEN and EAST back into the HALLWAY.",
+1, { :down => :kitchen})
+raven_hall.add_room(service_room)
 
 # Add the Kitchen to the dungeon (0th Floor)
-raven_hall.add_room(
-  :kitchen, "KITCHEN",
-  "The once bustling KITCHEN was where Bessie the cook and Eliza the scullery maid made meals " +
-  "for the family. It is now completely empty. The pots and pans are still neatly arranged " +
-  "on the shelves and racks. Now only your footsteps echo throughout the KITCHEN." +
-  "\nThe door goes to the LARDER to the SOUTH and the stairs go UP to the SERVICE ROOM.",
-  0, { :south => :larder, :up => :service_room }
-)
+kitchen = Dungeon::Room.new(:kitchen, "KITCHEN",
+"The once bustling KITCHEN was where Bessie the cook and\nEliza the scullery maid made meals " +
+"for the family. It is now completely empty.\nThe pots and pans are still neatly arranged " +
+"on the shelves and racks.\nNow only your footsteps echo throughout the KITCHEN." +
+"\nThe door goes to the LARDER to the SOUTH and the stairs go back UP to the SERVICE ROOM.",
+0, { :south => :larder, :up => :service_room })
+raven_hall.add_room(kitchen)
 
 # Add the Larder to the dungeon (0th Floor)
-raven_hall.add_room(
-  :larder, "LARDER",
-  "The LARDER was once well stocked with verdant vegetables, exotic spices, and other victuals " +
-  "that the cook used to make wonderful repasts." +
-  "\nThe door to the EAST goes to the COLD STORAGE and the KITCHEN to the NORTH.",
-  0, { :north => :kitchen, :east => :cold_storage }
-)
+larder = Dungeon::Room.new(:larder, "LARDER",
+"The LARDER was once well stocked with verdant vegetables, exotic spices, and other victuals " +
+"that the cook used to make wonderful repasts." +
+"\nThe door to the EAST goes to the COLD STORAGE and the KITCHEN to the NORTH.",
+0, { :north => :kitchen, :east => :cold_storage })
+raven_hall.add_room(larder)
 
 # Add the Cold Storage to the dungeon (0th Floor)
-raven_hall.add_room(
-  :cold_storage, "COLD STORAGE",
-  "The COLD STORAGE used to hold fresh fish, the choicest cuts of meat, and anything else that " +
-  "the family killed while hunting on the once well manicured grounds. The room now contains " +
-  "some grouse and pheasant curing on the rack presumably killed by Irving."
-  "\nThe door to the WEST goes to the LARDER.",
-  0, { :west => cold_storage }
-)
+cold_storage = Dungeon::Room.new(:cold_storage, "COLD STORAGE",
+"The COLD STORAGE used to hold fresh fish, the choicest cuts of meat, and anything else that " +
+"the family killed while hunting on the once well manicured grounds. The room now contains " +
+"some grouse and pheasant curing on the rack presumably killed by Irving." +
+"\nThe door to the WEST goes to the LARDER.",
+0, { :west => :cold_storage })
+raven_hall.add_room(cold_storage)
 
 # Add the Hallway (2nd Floor)
-raven_hall.add_room(
-  :hallway4, "HALLWAY",
+hallway4 = Dungeon::Room.new(:hallway4, "2nd floor HALLWAY",
   "The HALLWAY floor boards are creaky and you worry you might fall through." +
-  "\nThe doors go to the GAME ROOM to the EAST, the HALLWAY to the NORTH and the SMOKING ROOM " +
+  "\nThe doors go to the GAME ROOM to the EAST, the HALLWAY to the NORTH, and the SMOKING ROOM " +
   "to the WEST.",
-  2, { :north => :hallway5, :west => :smoking_room, :east => :game_room }
-)
+  2, { :north => :hallway5, :west => :smoking_room, :east => :game_room })
+raven_hall.add_room(hallway4)
 
-raven_hall.add_room(
-  :hallway5, "HALLWAY",
+hallway5 = Dungeon::Room.new(:hallway5, "2nd floor HALLWAY",
   "The HALLWAY floor boards are creaky and you worry you might fall through." +
-  "\nThe HALLWAY leads to the HALLWAY to the NORTH and DOWN the STAIRS.",
-  2, { :north => :hallway6, :south => :hallway4, :down => :hallway2 }
-)
+  "\nThe HALLWAY leads to the HALLWAY to the NORTH and the SOUTH and DOWN the STAIRS.",
+  2, { :north => :hallway6, :south => :hallway4, :down => :hallway2 })
+raven_hall.add_room(hallway5)
 
-raven_hall.add_room(
-  :hallway6, "HALLWAY",
+hallway6 = Dungeon::Room.new(:hallway6, "2nd floor HALLWAY",
   "The HALLWAY floor boards are creaky and you worry you might fall through." +
   "\nThe doors go to the DINING ROOM to the WEST, the SALON to the EAST, " +
-  "and the HALLWAY to the SOUTH",
-  2, { :west => :dining_room, :east => :salon, :south => :hallway5 }
-)
+  "and the HALLWAY to the SOUTH.",
+  2, { :west => :dining_room, :east => :salon, :south => :hallway5 })
+raven_hall.add_room(hallway6)
 
 # Add the Game Room (2nd Floor)
-raven_hall.add_room(
-  :game_room, "GAME ROOM",
-  "The GAME ROOM contains a billiards table with the balls still in the triangle on the velvet, " +
-  "green surface. A well-worn dart board is on the wall, however, the darts are long missing.",
-  "\nThe door goes to the HALLWAY to the WEST.",
-  2, { :west => :hallway4 }
-)
+game_room = Dungeon::Room.new(:game_room, "GAME ROOM",
+"The GAME ROOM contains a billiards table with the balls still in the triangle on the velvet, " +
+"green surface. A well-worn dart board is on the wall, however, the darts are long missing." +
+"\nThe door goes to the HALLWAY to the WEST.",
+2, { :west => :hallway4 })
+raven_hall.add_room(game_room)
 
 # Add the Smoking Room (2nd Floor)
-raven_hall.add_room(
-  :smoking_room, "SMOKING ROOM",
+smoking_room = Dungeon::Room.new(:smoking_room, "SMOKING ROOM",
   "The SMOKING ROOM reeks of stale cigar and pipe smoke. You remember the good times you spent " +
   "in here with Bertie. You remember the two of you stealing away to try his father's cigars. " +
-  "\"It looks like those days are over,\" you whisper to yourself.",
-  "\nThe door goes to the HALLWAY to the EAST",
-  2, { :east => :hallway4 }
-)
+  "\"It looks like those days are over,\" you whisper to yourself." +
+  "\nThe door goes to the HALLWAY to the EAST.",
+  2, { :east => :hallway4 })
+raven_hall.add_room(smoking_room)
 
 # Add the Dining Room (2nd Floor)
-raven_hall.add_room(
-  :dining_room, "DINING ROOM",
+dining_room = Dungeon::Room.new(:dining_room, "DINING ROOM",
   "The DINING ROOM is the longest room in the house with a table that can seat 50 people. You " +
   "remember frugal dinners with the family and fabulous banquets when the family would host " +
   "foreign dignitaries and powerful peers of the realm. It has been many years, it seems, since " +
   "food has been served here. Now only dust and cobwebs blanket the fine china still laid out " +
-  "perfectly on the table.",
-  "\nThe door leads to the HALLWAY to the WEST",
-  2, { :east => :hallway6 }
-)
+  "perfectly on the table." +
+  "\nThe door leads to the HALLWAY to the WEST.",
+  2, { :east => :hallway6 })
+raven_hall.add_room(dining_room)
 
-
+# Add the Salon (2nd Floor)
+salon = Dungeon::Room.new(:salon, "SALON",
+"The SALON was where the women used to sit after dinner when the men were smoking in the " +
+"smoking room downing bottles of expensive port. Some would talk about the difficulties of " +
+"running their households, some their children who were always getting in trouble, and a few " +
+"spoke of trying to make the world a better place. Those lively conversations long gone." +
+"\nThe door leads to the HALLWAY to the EAST.",
+2, { :west => :hallway6 })
+raven_hall.add_room(salon)
 
 puts  "You can hear owls hooting and unknown creatures flitting in the underbrush. " +
       "A thick layer of fog has descended upon the valley making it difficult for your " +
@@ -249,7 +256,8 @@ puts  "You can hear owls hooting and unknown creatures flitting in the underbrus
 
 puts separator
 
-puts  "                 ________________________\n" +
+puts  "                        FIRST FLOOR\n" +
+      "                 ________________________\n" +
       "                |      |          |      |\n" +
       "conservatory -> |  5   |         /    2  | <- service room\n" +
       "                |__--__|          |______|\n" +
@@ -265,6 +273,32 @@ puts separator
 # Start the dungeon by placing the player in the hallway
 raven_hall.start(:hallway1)
 
+# Goes into the CLOAK ROOM
 raven_hall.go(:east)
+
+# Goes back into the HALLWAY
 raven_hall.go(:west)
+
+# Goes forward in the HALLWAY
 raven_hall.go(:north)
+
+# Goes up the STAIRS to the second floor HALLWAY
+raven_hall.go(:up)
+
+# Goes down the STAIRS to the first floor HALLWAY
+raven_hall.go(:down)
+
+# Goes forward in the HALLWAY
+raven_hall.go(:north)
+
+# Goes into the SERVICE ROOM
+raven_hall.go(:east)
+
+# Goes down to the KITCHEN
+raven_hall.go(:down)
+
+# This is just to make sure the level of the
+# house the character is on can be accessed
+# puts "Level: #{larder.level}"
+# puts "Level: #{conservatory.level}"
+# puts "Level: #{smoking_room.level}"
