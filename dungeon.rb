@@ -9,6 +9,12 @@
 #       on the ground level, and some more rooms on the second story.
 #       The game is still very rough, but it is working w/o error.
 
+=begin
+Notes:
+put the ascii art into a variable, use string interpolation to put an x in the room
+that the character is in. Everytime you go into a room print out the layout of the house.
+=end
+
 class Dungeon
   attr_accessor :character, :number_of_rooms
 
@@ -59,7 +65,7 @@ class Dungeon
   end
 
   def show_current_description()
-    puts find_room_in_dungeon(@character.location).full_description
+    puts find_room_in_dungeon(@character.location).full_description()
   end
 
   def find_room_in_dungeon(reference)
@@ -75,6 +81,12 @@ class Dungeon
     print "#{@character.name} goes " + direction.to_s + " to the: "
     @character.location = find_room_in_direction(direction)
     show_current_description()
+  end
+
+  def print_location()
+    puts "-" * 50
+    puts "#{@character.name} is in the " + find_room_in_dungeon(@character.location).name
+    puts "-" * 50
   end
 end
 
@@ -142,7 +154,7 @@ raven_hall.add_room(conservatory)
 service_room = Dungeon::Room.new(:service_room, "SERVICE ROOM",
 "The SERVICE ROOM is where the servants did much of their work." +
 "\nThe stairs go DOWN to the KITCHEN and EAST back into the HALLWAY.",
-1, { :down => :kitchen})
+1, { :west => :hallway3, :down => :kitchen})
 raven_hall.add_room(service_room)
 
 # Add the Kitchen to the dungeon (0th Floor)
@@ -302,6 +314,15 @@ raven_hall.go(:east)
 
 # Goes down to the KITCHEN
 raven_hall.go(:down)
+
+# Goes back up to the SERVICE ROOM
+raven_hall.go(:up)
+
+# Goes back to the HALLWAY
+raven_hall.go(:west)
+
+# Prints the name of the room the character is in
+raven_hall.print_location
 
 # This is just to make sure the level of the
 # house that the character is on is correct
